@@ -3,6 +3,12 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+
 
 #Feature Engineering for v1 Model -- Kavin
 '''Used for feature engineering data for v1 model (Kavin).
@@ -161,6 +167,93 @@ def model_eval(train_labels, test_labels, train_preds, test_preds):
     pred_df = pd.DataFrame(data={"Training": train_scores, "Testing": test_scores},
                           index = ["Accuracy Score", "Precision Score", "Recall", "F1 Score"])
     return pred_df
+
+
+
+def feat_eng_split(features, target, split=0.25):
+    """
+    This is an utility function that creates a feature engineering pipeline which fits on and transform the training data,
+    followed by transforming the testing data to its rules.
+    
+    The pipeline normalizes the numerical data and one hot encodes the categorical data. This function automatically detects which 
+    features are numerical and which are categorical so it knows which columns to standardize and which to one hot encode.
+    
+    The pipeline also label encodes the target so that it converts its categories to numbers.
+    
+    
+    Parameters
+    ----------
+    features : A 2d Pandas dataframe of the independent variables
+    
+    target : A 1d like array of the target variable
+    
+    split : The train-test-split ratio, defaults to 25%
     
     
     
+    Returns
+    ----------
+    
+    X_train_fe : The transformed 2d matrix of the training data features
+    
+    X_test_fe : The transformed 2d matrix of the testing data features
+    
+    y_train_fe : The transformed 1d array of the training target variable
+    
+    y_test_fe : The transformed 1d array of the testing target variable
+    
+    
+    
+    Examples
+    --------
+    
+    >>>from utils import feat_eng_split
+    
+    >>>feat_eng_split(y_train, y_test, train_preds, test_preds)
+    
+    
+    """
+    
+    X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=split, stratify=target, random_state=1)
+    
+    le = LabelEncoder()
+    y_train_le = le.fit_transform(y_train)
+    y_test_le = le.transform(y_test)
+    
+    
+    feat_cols = X_train.columns
+    transformer_steps = []
+    
+    num_cols = features.select_dtypes("number").columns.tolist()
+    num_cols_mask = feat_cols.isin(num_cols)
+        
+    pipeline_num = Pipeline([("scale", StandardScaler())])
+    column_transform_scale_step = ("numerical", pipeline_num, num_cols_mask)
+    transformer_steps.append(column_transform_scale_step)
+    
+        
+    cat_cols = features.select_dtypes("object").columns.tolist()
+    cat_cols_mask= feat_cols.isin(cat_cols)
+
+    pipeline_cat = Pipeline([("ohe", OneHotEncoder(categories='auto', 
+                                                   handle_unknown='error', 
+                                                   sparse=False, drop="first"))])
+    column_transform_ohe_step = ("cat", pipeline_cat, cat_cols_mask)
+
+    transformer_steps.append(column_transform_ohe_step)
+        
+    feat_eng_pipe = ColumnTransformer(transformers=transformer_steps)
+    
+    X_train_fe = feat_eng_pipe.fit_transform(X_train)
+    X_test_fe = feat_eng_pipe.transform(X_test)
+    
+    
+    ohe_col_names = feat_eng_pipe.named_transformers_["cat"]["ohe"].get_feature_names(cat_cols).tolist()
+    
+    column_names = num_cols + ohe_col_names
+    
+    X_train_fe = pd.DataFrame(index=X_train.index, data = X_train_fe, columns=column_names)
+    X_test_fe = pd.DataFrame(index=X_test.index, data = X_test_fe, columns=column_names)
+    
+
+    return X_train_fe, X_test_fe, y_train_le, y_test_le
