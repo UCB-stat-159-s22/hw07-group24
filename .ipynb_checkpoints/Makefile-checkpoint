@@ -6,9 +6,7 @@ env :
     
 .PHONY: all
 all :
-
-	jupyter-book run main.ipynb
-	jupyter-book run /notebooks/EDA.ipynb
-	jupyter-book run /notebooks/FeatureEngineering.ipynb
-	jupyter-book run /notebooks/Modeling.ipynb
-
+	jupyter execute main.ipynb
+	jupyter execute notebooks/EDA.ipynb
+	jupyter execute notebooks/FeatureEngineering.ipynb
+	jupyter execute notebooks/Modeling.ipynb
