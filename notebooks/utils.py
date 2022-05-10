@@ -2,12 +2,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import pandas as pd
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+
 
 
 #Feature Engineering for v1 Model -- Kavin
 '''Used for feature engineering data for v1 model (Kavin).
 Requires df to be inputted with the following column names:
-
 'age', 'workclass', 'fnlwgt', 'education', 'education-num',
 'marital-status', 'occupation', 'relationship', 'race', 'sex',
 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
@@ -52,6 +56,10 @@ def featureEngineeringKavinV1(df):
     #log transform education-num
     df['years in education log transformed'] = (df['education-num']+1).transform(np.log)
     
+    df['capital-gain log transformed'] = (df['capital-gain']+1).transform(np.log)
+    
+    df['capital-loss log transformed'] = (df['capital-loss']+1).transform(np.log)
+    
     #log transform hours-per-week
     df['hours-per-week log transformed'] = (df['hours-per-week']+1).transform(np.log)
     
@@ -82,7 +90,6 @@ def featureEngineeringKavinV1(df):
 def histboxplot(data, feature, figsize=(12, 7), kde=False, bins=None):
     """
     Boxplot and histogram combined
-
     data: Pandas dataframe
     feature: Name of the dataframe for visualizing
     figsize: size of figure (default (12,7))
@@ -161,6 +168,3 @@ def model_eval(train_labels, test_labels, train_preds, test_preds):
     pred_df = pd.DataFrame(data={"Training": train_scores, "Testing": test_scores},
                           index = ["Accuracy Score", "Precision Score", "Recall", "F1 Score"])
     return pred_df
-    
-    
-    
