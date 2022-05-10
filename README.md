@@ -8,4 +8,8 @@ This project is themed on Census data. The Census data was obtained from UCI Mac
 
 The UCI Machine Learning Repository link to the data can be found here: http://archive.ics.uci.edu/ml/datasets/Census+Income.
 
-### Information of How to Run:
+### Quick Information of How to Run:
+* Environment Setup: In order to set up the environment quickly and easily, simply open Terminal, make sure you are in this project's directory, and run the command "make env". This will quickly get the environment for the notebook up and running.
+* Running Analysis: In order to run the analysis, the easiest way would be to use the Makefile! Simply open Terminal, make sure you are in this project's directory, and run the command "make all". This will run all the notebooks en masse. You can also manually go through the notebooks and run the cells through there for a more granular approach.
+* Using our Python package, projecttools: In order to use the functions located within our local Python package, projecttools, simply run the following "from projecttools.utils import [function name]" and then the function can be used whenever, wherever!
+* Testing projecttools: In order to run tests on project tools, simply run the test_utils.py function by running the following command once you have terminal open and are in the directory: "pytest projecttools"
