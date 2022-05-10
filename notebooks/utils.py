@@ -111,9 +111,56 @@ def histboxplot(data, feature, figsize=(12, 7), kde=False, bins=None):
     )  # Add median to the histogram
 
     
-# def model_eval(y_test, y_pred, y_probs):
-# This will be a utils function that outputs a dataframe of a models performance
-# It'll show the accuracy, precision, recall, f1, and auc scores
-
-
+def model_eval(train_labels, test_labels, train_preds, test_preds):
+    """
+    
+    This will be a utils function that outputs a Pandas DataFrame of a models training and testing scores 
+    for accuracy, precision, recall, and f1.
+    
+    
+    Parameters
+    ----------
+    train_labels : 1d array-like object that represents the training data's target variables
+    
+    test_labels : 1d array-like object that represents the testing data's target variables
+    
+    train_preds : 1d array-like object that represents the predictions for the training data
+    
+    test_preds : 1d array-like object that represents the predictions for the testing data
+    
+    Returns
+    -------
+    
+    pred_df : Pandas DataFrame of 4x2 dimenions.
+    
+    
+    Examples
+    --------
+    
+    >>>from utils import model_eval
+    
+    >>>model_eval(y_train, y_test, train_preds, test_preds)
+    
+    
+                    Training | Testing
+    Accuracy Score   0.37       0.35
+    Precision Score  0.23       0.20
+    Recall Score     0.30       0.28
+    F1 Score         0.27.      0.24      
+    """
+    
+    assert (len(train_labels) == len(train_preds)) and (len(test_labels) == len(test_preds)), "Mismatched dimensions in the parameters"
+    
+    
+    metric_funcs = [accuracy_score, precision_score, recall_score, f1_score]
+    
+    train_scores = [func(train_labels, train_preds) for func in metric_funcs]
+    test_scores = [func(test_labels, test_preds) for func in metric_funcs]
+    
+    
+    pred_df = pd.DataFrame(data={"Training": train_scores, "Testing": test_scores},
+                          index = ["Accuracy Score", "Precision Score", "Recall", "F1 Score"])
+    return pred_df
+    
+    
     
