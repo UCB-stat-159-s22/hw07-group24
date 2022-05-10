@@ -1,7 +1,7 @@
 # import os
 # os.chdir("../")
 # print(os.getcwd())
-from projecttools.utils import model_eval
+from projecttools.utils import model_eval, feat_eng_split
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -35,6 +35,31 @@ def test_model_eval():
     
     
     assert pred_df.applymap(lambda x: 0 <= x <= 1).all().all()
+    
+    
+
+def test_featengsplit():
+    
+    """
+    This is test makes sure that all the dimensions and columns of the training and validation features created by 
+    feat_eng_split utils function match. 
+    
+    That means they both have the same number of columns and in the exact same order.
+    """
+    
+    data = pd.read_csv("data/adult.data",
+                   names = ['age', 'workclass', 'fnlwgt', 'education','education-num',
+                            'marital-status','occupation','relationship','race','sex',
+                           'capital-gain','capital-loss','hours-per-week',
+                            'native-country','income'])
+    
+    X = data.drop("income", axis =1)
+    y = data["income"]
+    
+    X_train,X_test, y_train, y_test = feat_eng_split(X, y)
+    
+    assert (X_train.columns == X_test.columns).all()
+    
     
     
     
