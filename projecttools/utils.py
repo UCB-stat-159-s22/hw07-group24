@@ -3,6 +3,8 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 
+import joblib
+
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
@@ -257,3 +259,9 @@ def feat_eng_split(features, target, split=0.25):
     
 
     return X_train_fe, X_test_fe, y_train_le, y_test_le
+
+
+# def save_model(model, path):
+    
+#     joblib.dump(model, path)
+    
