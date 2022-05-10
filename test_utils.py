@@ -8,6 +8,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
 def test_model_eval():
+    """
+    This is test makes sure that all the values in the model metrics dataframe are between 0 and 1 (inclusive).
+    Therefore ensuring that a) those values are numbers and b) they are between 0 and 1 as those metrics should be
+    """
+    
     data = pd.read_csv("data/adult.data",
                    names = ['age', 'workclass', 'fnlwgt', 'education','education-num',
                             'marital-status','occupation','relationship','race','sex',
