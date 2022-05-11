@@ -289,7 +289,6 @@ def feature_Wen(data):
     X = df_upsample.drop(['income'], axis = 1)
     y = df_upsample['income']
 
-    from sklearn.ensemble import ExtraTreesClassifier
     selector = ExtraTreesClassifier(random_state=1)
     selector.fit(X, y)
     feature_imp = selector.feature_importances_
