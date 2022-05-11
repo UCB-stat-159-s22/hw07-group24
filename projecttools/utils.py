@@ -93,6 +93,18 @@ def featureEngineeringKavinV1(df):
     
     return df
 
+def feature_engineering_winston(data):
+    for colname in data:
+        types = data.dtypes.to_dict()
+        check = []
+        if len(pd.unique(data[colname])) > 10:
+            check.append(colname)
+        if str(types[colname]) =="object":
+            data[colname] = pd.factorize(data[colname])[0]
+    for colname in data:
+        if data[colname].mean() > 1000:
+            data[colname] = np.log(data[colname])
+    return data
 
 def histboxplot(data, feature, figsize=(12, 7), kde=False, bins=None):
     """
