@@ -10,7 +10,8 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
-
+from sklearn.utils import resample
+from sklearn.ensemble import ExtraTreesClassifier
 
 #Feature Engineering for v1 Model -- Kavin
 '''Used for feature engineering data for v1 model (Kavin).
@@ -268,7 +269,46 @@ def feat_eng_split(features, target, split=0.25):
     return X_train_fe, X_test_fe, y_train_le, y_test_le
 
 
-# def save_model(model, path):
+
+
+def feature_Wen(data):
     
-#     joblib.dump(model, path)
+    # replace ? to NaN
+    data = data.replace('\?', np.nan, regex=True)
+    # remove the rows that have NaN values
+    data = data.dropna()
+
+    # Label Encoding
+    for col in data.columns:
+        if data[col].dtypes == 'object':
+            encoder = LabelEncoder()
+            data[col] = encoder.fit_transform(data[col])
+
+
+    # Resampling
+    df_majority = data[(data['income'] == 0)]
+    df_minority = data[(data['income'] == 1)]
+
+    upsample = resample(df_minority, replace = True, n_samples = 22654, random_state = 1 )
+    df_upsample = pd.concat([upsample, df_majority])
+
+
+    # Selection
+    X = df_upsample.drop(['income'], axis = 1)
+    y = df_upsample['income']
+
+    selector = ExtraTreesClassifier(random_state=1)
+    selector.fit(X, y)
+    feature_imp = selector.feature_importances_
     
+    # removing data that out the normal
+    X = X.drop(['workclass', 'education', 'race', 'sex', 'capital-loss',
+            'native-country'], axis = 1)
+
+    #Scaling
+    scaler = StandardScaler()
+    dataset = scaler.fit_transform(X)
+    X = pd.DataFrame(dataset, columns = X.columns)
+	
+    return X, y
+
