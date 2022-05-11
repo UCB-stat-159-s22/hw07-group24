@@ -1,0 +1,10 @@
+README.md
+setup.cfg
+setup.py
+projecttools/__init__.py
+projecttools/utils.py
+projecttools.egg-info/PKG-INFO
+projecttools.egg-info/SOURCES.txt
+projecttools.egg-info/dependency_links.txt
+projecttools.egg-info/requires.txt
+projecttools.egg-info/top_level.txt
