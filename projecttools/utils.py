@@ -64,6 +64,13 @@ def featureEngineeringKavinV1(df):
     #log transform hours-per-week
     df['hours-per-week log transformed'] = (df['hours-per-week']+1).transform(np.log)
     
+    #log transform capital-gain
+    df['capital-gain log transformed'] = (df['capital-gain']+1).transform(np.log)
+    
+    #log transform capital-loss
+    df['capital-loss log transformed'] = (df['capital-loss']+1).transform(np.log)
+    
+    
     df["years educated / hours worked"] = df["years in education log transformed"] / df["hours-per-week log transformed"]
 
     df["capital gains * age"] = df["capital-gain log transformed"] * df["age log transformed"]
@@ -263,6 +270,7 @@ def feat_eng_split(features, target, split=0.25):
 
 
 
+
 def feature_Wen(data):
     
     # replace ? to NaN
@@ -303,3 +311,4 @@ def feature_Wen(data):
     X = pd.DataFrame(dataset, columns = X.columns)
 	
     return X, y
+
