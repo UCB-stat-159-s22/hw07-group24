@@ -10,6 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+<<<<<<< HEAD
 from sklearn import preprocessing
 
 #Feature Engineering for v1 Model -- Kavin
@@ -22,6 +23,23 @@ Requires df to be inputted with the following column names:
 'income'
 '''
 def featureEngineeringKavinV1(df):
+=======
+from sklearn.utils import resample
+from sklearn.ensemble import ExtraTreesClassifier
+
+#Feature Engineering for v1 Model -- Kavin
+def featureEngineeringKavinV1(df):
+    
+    '''Used for feature engineering data for v1 model (Kavin).
+    Requires df to be inputted with the following column names:
+
+    'age', 'workclass', 'fnlwgt', 'education', 'education-num',
+    'marital-status', 'occupation', 'relationship', 'race', 'sex',
+    'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
+    'income'
+    '''
+    
+>>>>>>> b5326492924a9b441fb662bdfe995aac3d93a63d
     #workclass
     dummies = pd.get_dummies(df["workclass"])
     df = pd.concat([df, dummies], axis=1)
@@ -93,6 +111,7 @@ def featureEngineeringKavinV1(df):
     
     return df
 
+<<<<<<< HEAD
 def feature_engineering_winston(data):
     for colname in data:
         types = data.dtypes.to_dict()
@@ -111,6 +130,8 @@ def feature_engineering_winston(data):
     df = pd.DataFrame(index = data.index, data=tmp, columns = data.columns)
     data = pd.concat([df, income], axis = 1)
     return data
+=======
+>>>>>>> b5326492924a9b441fb662bdfe995aac3d93a63d
 
 def histboxplot(data, feature, figsize=(12, 7), kde=False, bins=None):
     """
@@ -286,7 +307,53 @@ def feat_eng_split(features, target, split=0.25):
     return X_train_fe, X_test_fe, y_train_le, y_test_le
 
 
+<<<<<<< HEAD
 # def save_model(model, path):
     
 #     joblib.dump(model, path)
     
+=======
+
+
+def feature_Wen(data):
+    
+    # replace ? to NaN
+    data = data.replace('\?', np.nan, regex=True)
+    # remove the rows that have NaN values
+    data = data.dropna()
+
+    # Label Encoding
+    for col in data.columns:
+        if data[col].dtypes == 'object':
+            encoder = LabelEncoder()
+            data[col] = encoder.fit_transform(data[col])
+
+
+    # Resampling
+    df_majority = data[(data['income'] == 0)]
+    df_minority = data[(data['income'] == 1)]
+
+    upsample = resample(df_minority, replace = True, n_samples = 22654, random_state = 1 )
+    df_upsample = pd.concat([upsample, df_majority])
+
+
+    # Selection
+    X = df_upsample.drop(['income'], axis = 1)
+    y = df_upsample['income']
+
+    selector = ExtraTreesClassifier(random_state=1)
+    selector.fit(X, y)
+    feature_imp = selector.feature_importances_
+    
+    # removing data that out the normal
+    X = X.drop(['workclass', 'education', 'race', 'sex', 'capital-loss',
+            'native-country'], axis = 1)
+
+    #Scaling
+    scaler = StandardScaler()
+    dataset = scaler.fit_transform(X)
+    X = pd.DataFrame(dataset, columns = X.columns)
+	
+    return X, y
+
+>>>>>>> b5326492924a9b441fb662bdfe995aac3d93a63d
