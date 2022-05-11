@@ -13,11 +13,12 @@ Classifier: License :: OSI Approved :: BSD License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
+License-File: LICENSE
 
 # Predicting Income Off of General Census Data, a STAT 159 Final Project
 ## Authors: Kavin Suresh, Wen-Ching (Naomi) Tu, George McIntire, Winston Cai
 
-Binder Link: ...Insert Binder Link/Badge at End...
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/UCB-stat-159-s22/hw07-group24/HEAD)
 
 ### Description:
 This project is themed on Census data. The Census data was obtained from UCI Machine Learning Repository. The underlying idea behind the project is to predict income off of various provided Census data, such as age, type of employer, years spent in education, etc. We created 4 different approaches to solve this problem (Version 1, Version 2, Version 3, and Version 4). For each approach we performed Exploratory Data Analysis to figure out the trends and ideas behind our dataset, did feature engineering to optimize features for our models, ran our models, and then tested their performance. The purpose of this project is to figure out the best practices to solving this income prediction problem and come up with a final prediction that optimizes by combining the predictions across the four different approaches.
@@ -29,5 +30,35 @@ The UCI Machine Learning Repository link to the data can be found here: http://a
 * **Running Analysis:** In order to run the analysis, the easiest way would be to use the Makefile! Simply open Terminal, make sure you are in this project's directory, and run the command "make all". This will run all the notebooks en masse. You can also manually go through the notebooks and run the cells through there for a more granular approach.
 * **Using our Python package, projecttools:** In order to use the functions located within our local Python package, projecttools, simply run the following "from projecttools.utils import [function name]" and then the function can be used whenever, wherever!
 * **Testing projecttools:** In order to run tests on project tools, simply run the test_utils.py function by running the following command once you have terminal open and are in the directory: "pytest projecttools".
+
+BSD 3-Clause License
+
+Copyright (c) 2022, Homework 7 Group 24
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
