@@ -1,7 +1,6 @@
 # Predicting Income Off of General Census Data, a STAT 159 Final Project
 ## Authors: Kavin Suresh, Wen-Ching (Naomi) Tu, George McIntire, Winston Cai
 
-Binder
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/UCB-stat-159-s22/hw07-group24/HEAD)
 
 ### Description:
