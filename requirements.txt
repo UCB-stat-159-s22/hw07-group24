@@ -1,0 +1,6 @@
+docx==0.2.4
+ghp-import==2.0.2
+ligotools @ file:///home/jovyan/assignments/hw06-georgeberkeley
+palettable==3.3.0
+projecttools @ file:///home/jovyan/hw07-group24
+python-docx==0.8.11
