@@ -14,15 +14,17 @@ from sklearn.utils import resample
 from sklearn.ensemble import ExtraTreesClassifier
 
 #Feature Engineering for v1 Model -- Kavin
-'''Used for feature engineering data for v1 model (Kavin).
-Requires df to be inputted with the following column names:
-
-'age', 'workclass', 'fnlwgt', 'education', 'education-num',
-'marital-status', 'occupation', 'relationship', 'race', 'sex',
-'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
-'income'
-'''
 def featureEngineeringKavinV1(df):
+    
+    '''Used for feature engineering data for v1 model (Kavin).
+    Requires df to be inputted with the following column names:
+
+    'age', 'workclass', 'fnlwgt', 'education', 'education-num',
+    'marital-status', 'occupation', 'relationship', 'race', 'sex',
+    'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
+    'income'
+    '''
+    
     #workclass
     dummies = pd.get_dummies(df["workclass"])
     df = pd.concat([df, dummies], axis=1)
