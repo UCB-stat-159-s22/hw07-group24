@@ -1,6 +1,6 @@
 .PHONY: env
 env :
-	conda env create -f environment.yml
+	conda env create -f environment.yml --name census
 	conda activate census
 	python -m ipykernel install --user --name census --display-name "census"
     
