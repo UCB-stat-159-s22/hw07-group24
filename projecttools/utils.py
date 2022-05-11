@@ -10,7 +10,8 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
-
+from sklearn.utils import resample
+from sklearn.ensemble import ExtraTreesClassifier
 
 #Feature Engineering for v1 Model -- Kavin
 '''Used for feature engineering data for v1 model (Kavin).
@@ -302,4 +303,4 @@ def feature_Wen(data):
     dataset = scaler.fit_transform(X)
     X = pd.DataFrame(dataset, columns = X.columns)
 	
-    return X
+    return X, y
