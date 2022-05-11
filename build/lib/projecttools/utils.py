@@ -10,7 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
-
+from sklearn import preprocessing
 
 #Feature Engineering for v1 Model -- Kavin
 '''Used for feature engineering data for v1 model (Kavin).
@@ -103,7 +103,13 @@ def feature_engineering_winston(data):
             data[colname] = pd.factorize(data[colname])[0]
     for colname in data:
         if data[colname].mean() > 1000:
-            data[colname] = np.log(data[colname])
+            data[colname] = np.log(data[colname] + 1)
+    income = data["income"]
+    data.drop("income", axis = 1, inplace=True)
+    scaler = StandardScaler()
+    tmp = scaler.fit_transform(data)
+    df = pd.DataFrame(index = data.index, data=tmp, columns = data.columns)
+    data = pd.concat([df, income], axis = 1)
     return data
 
 def histboxplot(data, feature, figsize=(12, 7), kde=False, bins=None):
