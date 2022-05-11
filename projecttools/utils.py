@@ -259,9 +259,3 @@ def feat_eng_split(features, target, split=0.25):
     
 
     return X_train_fe, X_test_fe, y_train_le, y_test_le
-
-
-# def save_model(model, path):
-    
-#     joblib.dump(model, path)
-    
