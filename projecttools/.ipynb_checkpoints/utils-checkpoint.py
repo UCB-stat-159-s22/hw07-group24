@@ -10,6 +10,20 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+<<<<<<< HEAD
+from sklearn import preprocessing
+
+#Feature Engineering for v1 Model -- Kavin
+'''Used for feature engineering data for v1 model (Kavin).
+Requires df to be inputted with the following column names:
+
+'age', 'workclass', 'fnlwgt', 'education', 'education-num',
+'marital-status', 'occupation', 'relationship', 'race', 'sex',
+'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
+'income'
+'''
+def featureEngineeringKavinV1(df):
+=======
 from sklearn.utils import resample
 from sklearn.ensemble import ExtraTreesClassifier
 
@@ -25,6 +39,7 @@ def featureEngineeringKavinV1(df):
     'income'
     '''
     
+>>>>>>> b5326492924a9b441fb662bdfe995aac3d93a63d
     #workclass
     dummies = pd.get_dummies(df["workclass"])
     df = pd.concat([df, dummies], axis=1)
@@ -96,6 +111,27 @@ def featureEngineeringKavinV1(df):
     
     return df
 
+<<<<<<< HEAD
+def feature_engineering_winston(data):
+    for colname in data:
+        types = data.dtypes.to_dict()
+        check = []
+        if len(pd.unique(data[colname])) > 10:
+            check.append(colname)
+        if str(types[colname]) =="object":
+            data[colname] = pd.factorize(data[colname])[0]
+    for colname in data:
+        if data[colname].mean() > 1000:
+            data[colname] = np.log(data[colname] + 1)
+    income = data["income"]
+    data.drop("income", axis = 1, inplace=True)
+    scaler = StandardScaler()
+    tmp = scaler.fit_transform(data)
+    df = pd.DataFrame(index = data.index, data=tmp, columns = data.columns)
+    data = pd.concat([df, income], axis = 1)
+    return data
+=======
+>>>>>>> b5326492924a9b441fb662bdfe995aac3d93a63d
 
 def histboxplot(data, feature, figsize=(12, 7), kde=False, bins=None):
     """
@@ -271,6 +307,12 @@ def feat_eng_split(features, target, split=0.25):
     return X_train_fe, X_test_fe, y_train_le, y_test_le
 
 
+<<<<<<< HEAD
+# def save_model(model, path):
+    
+#     joblib.dump(model, path)
+    
+=======
 
 
 def feature_Wen(data):
@@ -314,3 +356,4 @@ def feature_Wen(data):
 	
     return X, y
 
+>>>>>>> b5326492924a9b441fb662bdfe995aac3d93a63d
