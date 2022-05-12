@@ -1,6 +1,6 @@
 # Author Contributions Statement
 
-### Kavin:
+### Kavin Suresh:
 
 * Version 1 -- EDA.ipynb, FeatureEngineering.ipynb, Modeling.ipynb
 * Feature Engineering Analysis -- main.ipynb
